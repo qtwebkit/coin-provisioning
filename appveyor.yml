@@ -1,0 +1,20 @@
+build: false
+
+environment:
+    matrix:
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+          SCRIPT_PATH: "coin/provisioning/qtci-windows-10-x86/03-conan.ps1"
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+          SCRIPT_PATH: "coin/provisioning/qtci-windows-10-x86_64/03-conan.ps1"
+
+install:
+  - ps: |
+      try {
+          & ${env:SCRIPT_PATH}
+      } catch {
+          Write-Host "Error while loading PowerShell script ${env:SCRIPT_PATH}"
+          Exit(1)
+      }
+
+test_script:
+  - echo Hello world

@@ -2,8 +2,8 @@
 
 Run-Conan-Install `
     -ConanfilesDir "$PSScriptRoot\conanfiles" `
-    -BuildinfoDir Mingw53-x86 `
+    -BuildinfoDir Mingw73-x86 `
     -Arch x86 `
     -Compiler "gcc" `
-    -CompilerVersion "5.3" `
-    -CompilerLibcxx "libstdc++11"
+    -CompilerVersion 7 `
+    -CompilerLibcxx "libstdc++"

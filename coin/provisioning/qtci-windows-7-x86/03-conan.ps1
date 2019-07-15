@@ -6,4 +6,6 @@ Run-Conan-Install `
     -Arch x86 `
     -Compiler "gcc" `
     -CompilerVersion 7 `
-    -CompilerLibcxx "libstdc++"
+    -CompilerLibcxx "libstdc++" `
+    -CompilerException "dwarf2" `
+    -CompilerThreads "posix"

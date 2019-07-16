@@ -54,7 +54,7 @@ function Run-Conan-Install
                 Push-Location $outpwd
                 Run-Executable "$scriptsPath\conan.exe" "install --no-imports --verify $manifestsDir", `
                     '-s', ('compiler="' + $Compiler + '"'), `
-                    "-s os=Windows -s arch=$Arch -s compiler.version=$CompilerVersion $extraArgs $conanfile" `
+                    "-s os=Windows -s arch=$Arch -s compiler.version=$CompilerVersion $extraArgs $conanfile"
                 break;
             } catch {
                 if ($i -eq 5) {

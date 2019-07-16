@@ -8,7 +8,7 @@ test_script:
   - ps: coin/provisioning/qtci-windows-10-x86/03-conan.ps1
   - ps: coin/provisioning/qtci-windows-10-x86_64/03-conan.ps1
   - ps: coin/provisioning/qtci-windows-7-x86/03-conan.ps1
-  - ps: Get-ChildItem -Path "install" -Recurse -File
+  - ps: Get-ChildItem -Path "conanbuildinfos" -Recurse -File
 
 artifacts:
   - path: 'conan_manifests'

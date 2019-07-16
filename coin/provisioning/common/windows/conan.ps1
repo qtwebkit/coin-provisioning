@@ -74,8 +74,8 @@ function Run-Conan-Install
         $extraArgs += " -s compiler.threads=$CompilerThreads"
     }
 
-    $manifestsDir = "$PSScriptRoot\conan_manifests"
-    $buildinfoRoot = "C:\Utils\conanbuildinfos"
+    $manifestsDir = "${env:APPVEYOR_BUILD_FOLDER}\conan_manifests\conan_manifests"
+    $buildinfoRoot = "${env:APPVEYOR_BUILD_FOLDER}\install"
 
     Get-ChildItem -Path "$ConanfilesDir\*.txt" |
     ForEach-Object {
@@ -86,7 +86,7 @@ function Run-Conan-Install
         for ($i = 1; $i -le 5; $i++) {
             try {
                 Push-Location $outpwd
-                Run-Executable "$scriptsPath\conan.exe" "install --no-imports --verify $manifestsDir", `
+                Run-Executable "$scriptsPath\conan.exe" "install --manifests $manifestsDir", `
                     '-s', ('compiler="' + $Compiler + '"'), `
                     "-s os=Windows -s arch=$Arch -s compiler.version=$CompilerVersion $extraArgs $conanfile"
                 break;

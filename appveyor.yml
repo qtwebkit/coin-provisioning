@@ -3,12 +3,8 @@ build: false
 environment:
     matrix:
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-          SCRIPT_PATH: "coin/provisioning/qtci-windows-10-x86/03-conan.ps1"
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
-          SCRIPT_PATH: "coin/provisioning/qtci-windows-10-x86_64/03-conan.ps1"
-
-install:
-  - powershell.exe -NonInteractive -File %SCRIPT_PATH%
 
 test_script:
-  - echo Hello world
+  - ps: coin/provisioning/qtci-windows-10-x86/03-conan.ps1
+  - ps: coin/provisioning/qtci-windows-10-x86_64/03-conan.ps1
+  - ps: coin/provisioning/qtci-windows-7-x86/03-conan.ps1

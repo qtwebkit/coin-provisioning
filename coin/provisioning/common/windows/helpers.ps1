@@ -37,8 +37,8 @@ function Run-Executable
         Wait-Process -InputObject $p
     }
 
-    $stdoutContent = Get-Content -Path $stdoutFile -Raw
-    $stderrContent = Get-Content -Path $stderrFile -Raw
+    $stdoutContent = [System.IO.File]::ReadAllText($stdoutFile)
+    $stderrContent = [System.IO.File]::ReadAllText($stderrFile)
     Remove-Item -Path $stdoutFile, $stderrFile -Force -ErrorAction Ignore
 
     $hasOutput = $false

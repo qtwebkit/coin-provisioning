@@ -23,8 +23,8 @@ function Run-Executable
         [string[]]$Arguments
     )
 
-    $stdoutFile = "$env:TEMP\$((New-Guid).Guid)"
-    $stderrFile = "$env:TEMP\$((New-Guid).Guid)"
+    $stdoutFile = [System.IO.Path]::GetTempFileName()
+    $stderrFile = [System.IO.Path]::GetTempFileName()
 
     if ([string]::IsNullOrEmpty($Arguments)) {
         Write-Host "Running `"$Executable`""

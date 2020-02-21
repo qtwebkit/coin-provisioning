@@ -1,14 +1,26 @@
-build: false
-
 environment:
-    matrix:
-        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+  CONAN_USER_HOME: "c:\\projects\\coin-provisioning"
 
-test_script:
-  - ps: coin/provisioning/qtci-windows-10-x86/03-conan.ps1
-  - ps: coin/provisioning/qtci-windows-10-x86_64/03-conan.ps1
-  - ps: coin/provisioning/qtci-windows-7-x86/03-conan.ps1
+build_script:
+  - ps: coin/provisioning/qtci-windows-10-x86/11-conan.ps1
+  - ps: coin/provisioning/qtci-windows-10-x86_64/11-conan.ps1
+  - ps: coin/provisioning/qtci-windows-7-x86/11-conan.ps1
   - ps: Get-ChildItem -Path "install" -Recurse -File
 
 artifacts:
   - path: 'conan_manifests'
+  - path: '.conan\data'
+    name: 'conan_data'
+
+deploy:
+  - provider: BinTray
+    username: qtbot
+    api_key:
+      secure: JVvpuPj2nNKm4MwCyvIw/WZFQzaDt14pMaehLRGplNvTlVvH+/rhxHG3PLXsY6S5
+    subject: qtbot
+    repo: coin-provisioning
+    package: conan-packages
+    version: $(APPVEYOR_REPO_TAG_NAME)
+    publish: true
+    on:
+      APPVEYOR_REPO_TAG: true

@@ -17,7 +17,7 @@ deploy:
     username: qtbot
     api_key:
       secure: JVvpuPj2nNKm4MwCyvIw/WZFQzaDt14pMaehLRGplNvTlVvH+/rhxHG3PLXsY6S5
-    subject: qtbot
+    subject: qtproject
     repo: coin-provisioning
     package: conan-packages
     version: $(APPVEYOR_REPO_TAG_NAME)

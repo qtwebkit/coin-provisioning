@@ -9,9 +9,11 @@ build_script:
 
 artifacts:
   - path: 'conan_manifests'
+    name: conan_manifests-$(APPVEYOR_REPO_TAG_NAME)
   - path: 'conanbuildinfos'
+    name: conanbuildinfos-$(APPVEYOR_REPO_TAG_NAME)
   - path: '.conan\data'
-    name: 'conan_data'
+    name: conan_data-$(APPVEYOR_REPO_TAG_NAME)
 
 deploy:
   - provider: BinTray

@@ -21,7 +21,7 @@ deploy:
     subject: qtproject
     repo: coin-provisioning
     package: conan-packages
-    version: $(APPVEYOR_REPO_TAG_NAME)
+    override: true
     publish: true
     on:
       APPVEYOR_REPO_TAG: true

@@ -36,7 +36,7 @@
 
 $scriptsPath = "C:\Python36\Scripts"
 
-Run-Executable "$scriptsPath\pip3.exe" "install --upgrade conan==1.17.0"
+Run-Executable "$scriptsPath\pip3.exe" "install -r $PSScriptRoot\conan_requirements.txt"
 Write-Output "Conan = 1.17.0" >> ~\versions.txt
 
 # Use Qt Project repository by default

@@ -21,10 +21,13 @@ sub table_line {
 say "Package | Coin version | Bintray version | Latest version";
 say "------- | ------------ | --------------- | --------------";
 
-table_line "icu", "64.2";
-table_line "libxml2", "2.9.9";
-table_line "libxslt", "1.1.33";
-table_line "libjpeg-turbo", "2.0.2";
+table_line "icu", "65.1";
+table_line "libxml2", "2.9.10";
+table_line "libxslt", "1.1.34";
+table_line "libjpeg-turbo", "2.0.3";
 table_line "zlib", "1.2.11";
 table_line "libgpg-error", "-";
 table_line "libgcrypt", "-";
+table_line "libtasn1", "-";
+table_line "brotli", "-";
+table_line "woff2", "-";

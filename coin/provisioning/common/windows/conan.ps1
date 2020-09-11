@@ -36,8 +36,8 @@
 
 $scriptsPath = "C:\Python36\Scripts"
 
-Run-Executable "$scriptsPath\pip3.exe" "install --upgrade conan==1.17.0"
-Write-Output "Conan = 1.17.0" >> ~\versions.txt
+Run-Executable "$scriptsPath\pip3.exe" "install -r $PSScriptRoot\conan_requirements.txt"
+Write-Output "Conan = 1.22.2" >> ~\versions.txt
 
 # Use Qt Project repository by default
 Run-Executable "$scriptsPath\conan.exe" "remote add qtproject https://api.bintray.com/conan/qtproject/conan --insert --force"
@@ -74,8 +74,11 @@ function Run-Conan-Install
         $extraArgs += " -s compiler.threads=$CompilerThreads"
     }
 
-    $manifestsDir = "${env:APPVEYOR_BUILD_FOLDER}\conan_manifests\conan_manifests"
-    $buildinfoRoot = "${env:APPVEYOR_BUILD_FOLDER}\conanbuildinfos"
+    $manifestsDir = "$PSScriptRoot\conan_manifests"
+    $buildinfoRoot = "C:\Utils\conanbuildinfos"
+
+    # Make up to 5 attempts for all download operations in conan
+    $env:CONAN_RETRY = "5"
 
     Get-ChildItem -Path "$ConanfilesDir\*.txt" |
     ForEach-Object {
@@ -83,21 +86,11 @@ function Run-Conan-Install
         $outpwd = "$buildinfoRoot\$BuildinfoDir\$($_.BaseName)"
         New-Item $outpwd -Type directory -Force | Out-Null
 
-        for ($i = 1; $i -le 5; $i++) {
-            try {
-                Push-Location $outpwd
-                Run-Executable "$scriptsPath\conan.exe" "install --manifests $manifestsDir", `
-                    '-s', ('compiler="' + $Compiler + '"'), `
-                    "-s os=Windows -s arch=$Arch -s compiler.version=$CompilerVersion $extraArgs $conanfile"
-                break;
-            } catch {
-                if ($i -eq 5) {
-                    throw "Could not install conan content"
-                }
-            } finally {
-                Pop-Location
-            }
-        }
+        Push-Location $outpwd
+        Run-Executable "$scriptsPath\conan.exe" "install --no-imports --verify $manifestsDir", `
+            '-s', ('compiler="' + $Compiler + '"'), `
+            "-s os=Windows -s arch=$Arch -s compiler.version=$CompilerVersion $extraArgs $conanfile"
+        Pop-Location
 
         Copy-Item -Path $conanfile -Destination "$outpwd\conanfile.txt"
     }

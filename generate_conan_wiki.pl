@@ -24,7 +24,7 @@ say "------- | ------------ | --------------- | --------------";
 table_line "icu", "65.1";
 table_line "libxml2", "2.9.10";
 table_line "libxslt", "1.1.34";
-table_line "libjpeg-turbo", "2.0.3";
+table_line "libjpeg-turbo", "2.0.5";
 table_line "zlib", "1.2.11";
 table_line "libgpg-error", "-";
 table_line "libgcrypt", "-";

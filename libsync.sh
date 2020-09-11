@@ -4,8 +4,8 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 if !(git remote | grep 'qt5' > /dev/null); then
   git remote add qt5 git://code.qt.io/qt/qt5.git;
-  git fetch qt5 $BRANCH;
 fi
+git fetch qt5 $BRANCH;
 
 sync_files() {
     echo "Checking out files from qt5/$BRANCH"

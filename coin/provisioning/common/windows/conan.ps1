@@ -74,8 +74,8 @@ function Run-Conan-Install
         $extraArgs += " -s compiler.threads=$CompilerThreads"
     }
 
-    $manifestsDir = "$PSScriptRoot\conan_manifests"
-    $buildinfoRoot = "C:\Utils\conanbuildinfos"
+    $manifestsDir = "${env:APPVEYOR_BUILD_FOLDER}\conan_manifests\conan_manifests"
+    $buildinfoRoot = "${env:APPVEYOR_BUILD_FOLDER}\conanbuildinfos"
 
     # Make up to 5 attempts for all download operations in conan
     $env:CONAN_RETRY = "5"
@@ -87,7 +87,7 @@ function Run-Conan-Install
         New-Item $outpwd -Type directory -Force | Out-Null
 
         Push-Location $outpwd
-        Run-Executable "$scriptsPath\conan.exe" "install --no-imports --verify $manifestsDir", `
+        Run-Executable "$scriptsPath\conan.exe" "install --manifests $manifestsDir", `
             '-s', ('compiler="' + $Compiler + '"'), `
             "-s os=Windows -s arch=$Arch -s compiler.version=$CompilerVersion $extraArgs $conanfile"
         Pop-Location

@@ -76,6 +76,7 @@ function Run-Conan-Install
 
     $manifestsDir = "${env:APPVEYOR_BUILD_FOLDER}\conan_manifests\conan_manifests"
     $buildinfoRoot = "${env:APPVEYOR_BUILD_FOLDER}\conanbuildinfos"
+    $lockfileRoot = "${env:APPVEYOR_BUILD_FOLDER}\conan_lockfiles"
 
     # Make up to 5 attempts for all download operations in conan
     $env:CONAN_RETRY = "5"
@@ -84,12 +85,14 @@ function Run-Conan-Install
     ForEach-Object {
         $conanfile = $_.FullName
         $outpwd = "$buildinfoRoot\$BuildinfoDir\$($_.BaseName)"
+        $lockfile = "$lockfileRoot\$($_.BaseName)-$BuildinfoDir.lock"
         New-Item $outpwd -Type directory -Force | Out-Null
 
         Push-Location $outpwd
-        Run-Executable "$scriptsPath\conan.exe" "install --manifests $manifestsDir", `
+        Run-Executable "$scriptsPath\conan.exe" "lock create --lockfile-out $lockfile", `
             '-s', ('compiler="' + $Compiler + '"'), `
             "-s os=Windows -s arch=$Arch -s compiler.version=$CompilerVersion $extraArgs $conanfile"
+        Run-Executable "$scriptsPath\conan.exe" "install --manifests $manifestsDir --lockfile $lockfile $conanfile"
         Pop-Location
 
         Copy-Item -Path $conanfile -Destination "$outpwd\conanfile.txt"

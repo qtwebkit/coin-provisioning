@@ -10,6 +10,8 @@ build_script:
 artifacts:
   - path: 'conan_manifests'
     name: conan_manifests-$(APPVEYOR_REPO_TAG_NAME)
+  - path: 'conan_lockfiles'
+    name: conan_lockfiles-$(APPVEYOR_REPO_TAG_NAME)
   - path: 'conanbuildinfos'
     name: conanbuildinfos-$(APPVEYOR_REPO_TAG_NAME)
   - path: '.conan\data'

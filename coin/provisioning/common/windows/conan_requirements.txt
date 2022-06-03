@@ -1,6 +1,6 @@
 # Generated for conan==1.22.2
 appdirs==1.4.3
-bottle==0.12.18
+bottle==0.12.20
 certifi==2019.11.28
 chardet==3.0.4
 colorama==0.4.3
